@@ -25,8 +25,10 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
@@ -53,6 +55,35 @@ public class PostsApiControllerTest {
                 .apply(springSecurity())
                 .build();
     }
+
+    @DisplayName("Posts 목록 조회")
+    @Test
+    @WithMockUser(roles = "USER")
+    public void Posts_목록_조회() throws Exception {
+        // given
+        Posts firstPost = postsRepository.save(Posts.builder()
+                .title("first")
+                .content("first content")
+                .author("author1")
+                .build());
+        Posts secondPost = postsRepository.save(Posts.builder()
+                .title("second")
+                .content("second content")
+                .author("author2")
+                .build());
+
+        String url = "http://localhost:" + port + "/api/v1/posts";
+
+        // when, then
+        mvc.perform(get(url))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].id").value(secondPost.getId()))
+                .andExpect(jsonPath("$[0].title").value("second"))
+                .andExpect(jsonPath("$[0].author").value("author2"))
+                .andExpect(jsonPath("$[1].id").value(firstPost.getId()))
+                .andExpect(jsonPath("$[1].title").value("first"));
+    }
+
     @AfterEach
     public void tearDown() throws Exception {
         postsRepository.deleteAll();
