@@ -46,10 +46,11 @@ public class SecurityConfig {
                 )
 
                 // 4. 로그아웃 성공 시 이동 경로
-                .logout(logout -> logout.logoutSuccessUrl("/"))
+                .logout(logout -> logout.logoutSuccessUrl("/bbs-front/"))
 
                 // 5. OAuth2 로그인 설정
                 .oauth2Login(oauth2 -> oauth2
+                        .defaultSuccessUrl("/bbs-front/", true)
                         .userInfoEndpoint(userInfo -> userInfo
                                 .userService(customOAuth2UserService)
                         )
