@@ -5,7 +5,7 @@ ABSDIR=$(dirname $ABSPATH)
 source ${ABSDIR}/profile.sh
 
 REPOSITORY=/home/ec2-user/app/step3
-PROJECT_NAME=gettingstarted
+PROJECT_NAME=bbs-backend
 
 echo "> Build 파일 복사"
 # step2 디렉토리로 이동

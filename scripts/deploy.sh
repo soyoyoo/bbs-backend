@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 REPOSITORY=/home/ec2-user/app/step3
-PROJECT_NAME=gettingstarted
+PROJECT_NAME=bbs-backend
 
 echo "> 현재 쉬고 있는 profile 확인"
 # profile.sh를 실행하여 현재 Nginx가 바라보지 않는 쉬고 있는 프로필(real1 또는 real2)을 가져옴

@@ -1,1 +1,1 @@
-rootProject.name = "gettingstarted"
+rootProject.name = "bbs-backend"
