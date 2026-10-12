@@ -40,7 +40,7 @@ public class SecurityConfig {
                 .headers(headers -> headers.frameOptions(frame -> frame.disable()))
                 .authorizeHttpRequests(auth -> auth
                         // antMatcher(...)로 감싸서 명시적 지정!
-                        .requestMatchers(antMatcher("/"), antMatcher("/css/**"), antMatcher("/images/**"), antMatcher("/js/**"), antMatcher("/h2-console/**"), antMatcher("/profile")).permitAll()
+                        .requestMatchers(antMatcher("/"), antMatcher("/css/**"), antMatcher("/images/**"), antMatcher("/js/**"), antMatcher("/h2-console/**"), antMatcher("/profile"),antMatcher("/api/v1/user") ).permitAll()
                         .requestMatchers(antMatcher("/api/v1/**")).hasRole(Role.USER.name())
                         .anyRequest().authenticated()
                 )
@@ -61,6 +61,7 @@ public class SecurityConfig {
     public WebSecurityCustomizer webSecurityCustomizer() {
         // /profile 및 정적 리소스는 Security 필터 체인 자체를 거치지 않고 바로 통과!
         return (web) -> web.ignoring().requestMatchers(
+                AntPathRequestMatcher.antMatcher("/api/v1/user"),
                 AntPathRequestMatcher.antMatcher("/profile"),
                 AntPathRequestMatcher.antMatcher("/css/**"),
                 AntPathRequestMatcher.antMatcher("/js/**"),

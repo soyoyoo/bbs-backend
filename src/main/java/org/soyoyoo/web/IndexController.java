@@ -7,6 +7,7 @@ import org.soyoyoo.service.posts.PostsService;
 import org.soyoyoo.web.dto.PostsListResponseDto;
 import org.soyoyoo.web.dto.PostsResponseDto;
 
+import org.soyoyoo.web.dto.UserResponseDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.ui.Model;
@@ -46,5 +47,13 @@ public class IndexController {
         model.addAttribute("post", dto);
 
         return "posts-update";
+    }
+    // Spring Boot - IndexController.java 등에 추가
+    @GetMapping("/api/v1/user")
+    public UserResponseDto getUser(@LoginUser SessionUser user) {
+        if (user != null) {
+            return new UserResponseDto(user.getName(), user.getEmail());
+        }
+        return null; // 비로그인 상태
     }
 }
