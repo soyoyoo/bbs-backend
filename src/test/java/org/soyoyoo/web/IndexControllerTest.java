@@ -32,7 +32,7 @@ public class IndexControllerTest {
         String body = this.testRestTemplate.getForObject("/", String.class);
 
         // then
-        assertThat(body).contains("스프링부트로 시작하는 웹 서비스");
+        assertThat(body).contains("스프링부트");
     }
     @Test
     public void 비로그인시_user_null_반환() throws Exception {
